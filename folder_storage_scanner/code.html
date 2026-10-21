@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Resonance Audio - Storage Directory &amp; Local Folder Scanner</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-primary-fixed-variant": "#5516be",
+            "error-container": "#93000a",
+            "secondary-fixed": "#acedff",
+            "inverse-surface": "#e2e2e9",
+            "on-tertiary": "#67001b",
+            "background": "#111318",
+            "on-secondary-container": "#00424e",
+            "tertiary": "#ffb2b7",
+            "surface-container-low": "#1a1b21",
+            "inverse-primary": "#6d3bd7",
+            "on-background": "#e2e2e9",
+            "inverse-on-surface": "#2e3036",
+            "on-primary": "#3c0091",
+            "on-tertiary-fixed-variant": "#92002a",
+            "outline": "#958ea0",
+            "primary-container": "#a078ff",
+            "on-error": "#690005",
+            "secondary": "#4cd7f6",
+            "on-tertiary-fixed": "#40000d",
+            "on-primary-fixed": "#23005c",
+            "secondary-container": "#03b5d3",
+            "outline-variant": "#494454",
+            "on-secondary-fixed": "#001f26",
+            "primary-fixed-dim": "#d0bcff",
+            "surface-dim": "#111318",
+            "on-surface-variant": "#cbc3d7",
+            "tertiary-fixed-dim": "#ffb2b7",
+            "surface-container-lowest": "#0c0e13",
+            "on-surface": "#e2e2e9",
+            "tertiary-fixed": "#ffdadb",
+            "surface-container-highest": "#33353a",
+            "surface-tint": "#d0bcff",
+            "primary-fixed": "#e9ddff",
+            "on-secondary-fixed-variant": "#004e5c",
+            "on-secondary": "#003640",
+            "tertiary-container": "#ff516a",
+            "on-error-container": "#ffdad6",
+            "error": "#ffb4ab",
+            "surface-container": "#1e1f25",
+            "surface-variant": "#33353a",
+            "on-primary-container": "#340080",
+            "primary": "#d0bcff",
+            "surface-bright": "#37393f",
+            "secondary-fixed-dim": "#4cd7f6",
+            "on-tertiary-container": "#5b0017",
+            "surface": "#111318",
+            "surface-container-high": "#282a2f"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xs": "0.25rem",
+            "margin": "1rem",
+            "space-xl": "2rem",
+            "gutter": "1rem",
+            "gutter-mobile": "0.75rem",
+            "space-md": "1rem",
+            "margin-mobile": "1rem",
+            "space-lg": "1.5rem",
+            "space-sm": "0.5rem"
+          },
+          "fontFamily": {
+            "headline-md": ["Space Grotesk"],
+            "label-sm": ["Space Grotesk"],
+            "display-lg": ["Space Grotesk"],
+            "label-md": ["Space Grotesk"],
+            "label-lg": ["Space Grotesk"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"],
+            "headline-lg": ["Space Grotesk"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "headline-sm": ["Space Grotesk"],
+            "title-md": ["Plus Jakarta Sans"],
+            "display-lg-mobile": ["Space Grotesk"]
+          },
+          "fontSize": {
+            "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "label-sm": ["10px", { "lineHeight": "12px", "fontWeight": "700" }],
+            "display-lg": ["40px", { "lineHeight": "48px", "fontWeight": "700" }],
+            "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+            "label-lg": ["14px", { "lineHeight": "18px", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "headline-lg": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "title-md": ["16px", { "lineHeight": "22px", "fontWeight": "600" }],
+            "display-lg-mobile": ["32px", { "lineHeight": "40px", "fontWeight": "700" }]
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 22px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-feature-settings: 'liga';
+      -webkit-font-smoothing: antialiased;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      display: none;
+    }
+    .custom-scroll {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .pulse-ring {
+      box-shadow: 0 0 0 0 rgba(76, 215, 246, 0.4);
+      animation: pulsing 2s infinite cubic-bezier(0.66, 0, 0, 1);
+    }
+    @keyframes pulsing {
+      to {
+        box-shadow: 0 0 0 12px rgba(76, 215, 246, 0);
+      }
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container min-h-screen flex flex-col justify-between">
+<!-- Main Mobile Shell Container -->
+<div class="relative w-full max-w-md mx-auto min-h-screen bg-background flex flex-col shadow-2xl overflow-x-hidden pb-32">
+<!-- TopAppBar Component (from Shared Components JSON) -->
+<header class="fixed top-0 left-0 w-full z-40 flex justify-between items-center px-4 h-16 max-w-md mx-auto right-0 bg-surface-container-low/80 backdrop-blur-md border-b border-outline-variant/20 shadow-sm">
+<div class="flex items-center gap-3">
+<button aria-label="Audio Visualizer" class="w-10 h-10 rounded-full flex items-center justify-center text-primary hover:bg-surface-bright hover:text-on-surface transition-colors active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="graphic_eq">graphic_eq</span>
+</button>
+<span class="font-headline-md text-headline-md font-bold text-on-surface tracking-tight">Resonance Audio</span>
+</div>
+<button aria-label="Search" class="w-10 h-10 rounded-full flex items-center justify-center text-primary hover:bg-surface-bright hover:text-on-surface transition-colors active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+</header>
+<!-- Sub-Header / Storage Context Toolbar -->
+<main class="flex-1 px-margin-mobile pt-20 flex flex-col gap-space-lg">
+<!-- Screen Heading & Live Scanner Chip -->
+<section class="flex items-center justify-between mt-2">
+<div>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest font-bold">Offline Storage</span>
+<h1 class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight">Folders &amp; Indexer</h1>
+</div>
+<!-- Local Storage Scanner Chip -->
+<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container-high border border-outline-variant/30 backdrop-blur-md shadow-sm">
+<span class="w-2 h-2 rounded-full bg-secondary pulse-ring"></span>
+<span class="font-label-md text-label-md text-secondary font-semibold">Indexed</span>
+</div>
+</section>
+<!-- Storage Breakdown Bento / Summary Card -->
+<section class="rounded-xl p-space-md bg-surface-container-low/90 border border-outline-variant/30 backdrop-blur-xl relative overflow-hidden shadow-lg">
+<!-- Specular Highlight Top Hairline -->
+<div class="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
+<div class="flex items-start justify-between mb-space-sm">
+<div class="flex items-center gap-3">
+<div class="w-11 h-11 rounded-lg bg-surface-container-high border border-outline-variant/40 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="sd_card" data-weight="fill" style="font-variation-settings: 'FILL' 1;">sd_card</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant font-medium">Internal Storage</p>
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">42.1 GB <span class="font-body-sm text-body-sm text-on-surface-variant font-normal">/ 128 GB</span></h2>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-surface-container-highest font-label-sm text-label-sm text-primary font-bold">
+            Hi-Res FLAC
+          </span>
+</div>
+<!-- Custom Multi-Tone Storage Bar -->
+<div class="mt-space-md mb-2">
+<div class="w-full h-2.5 rounded-full bg-surface-container-highest overflow-hidden flex p-0.5 gap-0.5">
+<div class="h-full rounded-full bg-primary transition-all duration-500" style="width: 32.8%;" title="Lossless Audio (42.1 GB)"></div>
+<div class="h-full rounded-full bg-secondary transition-all duration-500" style="width: 14%;" title="Lossy &amp; MP3"></div>
+<div class="h-full rounded-full bg-outline-variant/60" style="width: 25%;" title="System / Other"></div>
+</div>
+</div>
+<!-- Legend Tags -->
+<div class="flex items-center justify-between text-on-surface-variant font-body-sm text-body-sm mt-1">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span>Music (42.1 GB)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span>Podcasts</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span>
+<span>Free (60.9 GB)</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm border-t border-outline-variant/20 flex items-center justify-between">
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-secondary" data-icon="update" style="font-size: 16px;">update</span>
+<span class="font-label-sm text-label-sm">Last scanned 12 mins ago</span>
+</div>
+<!-- Rescan Folders Action -->
+<button class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 hover:bg-primary/20 text-primary border border-primary/30 transition-all duration-150 active:scale-95" id="rescan-btn">
+<span class="material-symbols-outlined" data-icon="refresh" style="font-size: 18px;">refresh</span>
+<span class="font-label-md text-label-md font-semibold">Rescan Folders</span>
+</button>
+</div>
+</section>
+<!-- Active Mounted Sources Pill Tabs -->
+<section class="flex gap-2 overflow-x-auto custom-scroll pb-1">
+<button class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-container-high border border-secondary text-on-surface font-label-md text-label-md shadow-sm whitespace-nowrap">
+<span class="material-symbols-outlined text-secondary" data-icon="phone_android" style="font-size: 16px;">phone_android</span>
+<span>Internal Device</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+</button>
+<button class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-container-low border border-outline-variant/30 text-on-surface-variant hover:text-on-surface font-label-md text-label-md whitespace-nowrap">
+<span class="material-symbols-outlined" data-icon="sd_card" style="font-size: 16px;">sd_card</span>
+<span>MicroSD (SanDisk 512G)</span>
+</button>
+<button class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-container-low border border-outline-variant/30 text-on-surface-variant hover:text-on-surface font-label-md text-label-md whitespace-nowrap">
+<span class="material-symbols-outlined" data-icon="usb" style="font-size: 16px;">usb</span>
+<span>OTG DAC/Drive</span>
+</button>
+</section>
+<!-- Monitored Directory Hierarchy & Whitelist / Blacklist -->
+<section class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="folder_managed" style="font-size: 20px;">folder_managed</span>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Directory Permissions</h3>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">4 Paths Configured</span>
+</div>
+<div class="flex flex-col gap-2.5">
+<!-- Folder Item 1: Music -->
+<article class="p-3.5 rounded-xl bg-surface-container-low/70 border border-outline-variant/20 hover:border-primary/40 transition-colors flex items-center justify-between">
+<div class="flex items-start gap-3 min-w-0 pr-3">
+<div class="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shrink-0 mt-0.5">
+<span class="material-symbols-outlined" data-icon="music_note" data-weight="fill" style="font-variation-settings: 'FILL' 1;">music_note</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-title-md text-title-md font-semibold text-on-surface truncate">Music</span>
+<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-secondary/15 text-secondary">WHITELIST</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant font-mono truncate">/storage/emulated/0/Music</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-label-sm text-label-sm text-secondary font-medium">890 tracks</span>
+<span class="text-outline-variant text-[10px]">•</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Lossless &amp; Master</span>
+</div>
+</div>
+</div>
+<!-- Custom Toggle -->
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-on-primary-container after:border-surface-dim after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</article>
+<!-- Folder Item 2: Download -->
+<article class="p-3.5 rounded-xl bg-surface-container-low/70 border border-outline-variant/20 hover:border-primary/40 transition-colors flex items-center justify-between">
+<div class="flex items-start gap-3 min-w-0 pr-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high border border-outline-variant/30 flex items-center justify-center text-secondary shrink-0 mt-0.5">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-title-md text-title-md font-semibold text-on-surface truncate">Download</span>
+<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-secondary/15 text-secondary">AUTO-INDEX</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant font-mono truncate">/storage/emulated/0/Download</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-label-sm text-label-sm text-secondary font-medium">312 tracks</span>
+<span class="text-outline-variant text-[10px]">•</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Recent Downloads</span>
+</div>
+</div>
+</div>
+<!-- Custom Toggle -->
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-on-primary-container after:border-surface-dim after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</article>
+<!-- Folder Item 3: WhatsApp Audio (Blacklisted / Excluded) -->
+<article class="p-3.5 rounded-xl bg-surface-container-low/40 border border-outline-variant/15 opacity-75 hover:opacity-100 transition-opacity flex items-center justify-between">
+<div class="flex items-start gap-3 min-w-0 pr-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container border border-outline-variant/20 flex items-center justify-center text-outline shrink-0 mt-0.5">
+<span class="material-symbols-outlined" data-icon="block">block</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-title-md text-title-md font-semibold text-on-surface-variant line-through truncate">WhatsApp Audio</span>
+<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-error-container/30 text-error">BLACKLISTED</span>
+</div>
+<p class="font-body-sm text-body-sm text-outline font-mono truncate">/storage/emulated/0/WhatsApp/Media/Audio</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-label-sm text-label-sm text-outline">Excluded from audio index</span>
+</div>
+</div>
+</div>
+<!-- Custom Toggle (OFF) -->
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-outline after:border-surface-dim after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</article>
+<!-- Folder Item 4: Podcasts -->
+<article class="p-3.5 rounded-xl bg-surface-container-low/70 border border-outline-variant/20 hover:border-primary/40 transition-colors flex items-center justify-between">
+<div class="flex items-start gap-3 min-w-0 pr-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high border border-outline-variant/30 flex items-center justify-center text-primary shrink-0 mt-0.5">
+<span class="material-symbols-outlined" data-icon="podcasts">podcasts</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-title-md text-title-md font-semibold text-on-surface truncate">Podcasts</span>
+<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-secondary/15 text-secondary">WHITELIST</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant font-mono truncate">/storage/emulated/0/Podcasts</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-label-sm text-label-sm text-secondary font-medium">226 tracks</span>
+<span class="text-outline-variant text-[10px]">•</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Spoken Word / Episodic</span>
+</div>
+</div>
+</div>
+<!-- Custom Toggle -->
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-on-primary-container after:border-surface-dim after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</article>
+</div>
+</section>
+<!-- Advanced Filter Settings Bento -->
+<section class="flex flex-col gap-space-sm mb-6">
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="tune" style="font-size: 20px;">tune</span>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Filter &amp; Scan Rules</h3>
+</div>
+<span class="font-label-sm text-label-sm text-primary">Live Rules</span>
+</div>
+<div class="rounded-xl p-space-md bg-surface-container-low/70 border border-outline-variant/20 flex flex-col gap-4">
+<!-- Filter 1: Short Files -->
+<div class="flex items-center justify-between">
+<div class="pr-3">
+<h4 class="font-title-md text-title-md font-semibold text-on-surface">Ignore audio under 30 seconds</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Prevents notification pings, ringtones, and chat voice clips from entering your library</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-on-primary-container after:border-surface-dim after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<div class="h-[1px] bg-outline-variant/15 w-full"></div>
+<!-- Filter 2: Background Trigger -->
+<div class="flex items-center justify-between">
+<div class="pr-3">
+<h4 class="font-title-md text-title-md font-semibold text-on-surface">Auto-scan on new media added</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Listens to Android MediaStore broadcast events for background updates</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-on-primary-container after:border-surface-dim after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<div class="h-[1px] bg-outline-variant/15 w-full"></div>
+<!-- Filter 3: Supported Formats -->
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<h4 class="font-title-md text-title-md font-semibold text-on-surface">Supported Formats</h4>
+<span class="font-label-sm text-label-sm text-secondary font-bold">7 CODECS ACTIVE</span>
+</div>
+<div class="flex flex-wrap gap-1.5 mt-1">
+<span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-surface-container-high border border-primary/40 text-primary">MP3</span>
+<span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-primary/20 border border-primary text-on-surface">FLAC 24-bit</span>
+<span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-surface-container-high border border-primary/40 text-primary">ALAC</span>
+<span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-surface-container-high border border-primary/40 text-primary">WAV</span>
+<span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-surface-container-high border border-primary/40 text-primary">OGG</span>
+<span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-surface-container-high border border-primary/40 text-primary">AAC</span>
+<span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-surface-container-high border border-primary/40 text-primary">M4A</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Contextual FAB: '+ Add Custom Folder' (Specific to this Folder Management screen) -->
+<div class="fixed bottom-20 right-4 z-40 max-w-md mx-auto">
+<button class="flex items-center gap-2 pl-4 pr-5 py-3.5 rounded-full bg-gradient-to-r from-primary-container to-secondary-container text-on-primary font-headline-sm text-headline-sm shadow-[0_4px_24px_rgba(160,120,255,0.45)] active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="create_new_folder" style="font-size: 24px;">create_new_folder</span>
+<span class="font-label-lg text-label-lg font-bold tracking-tight">Add Custom Folder</span>
+</button>
+</div>
+<!-- BottomNavBar Component (from Shared Components JSON) -->
+<!-- Active tab semantically locked to 'Folders' -->
+<nav class="fixed bottom-0 left-0 right-0 w-full z-50 flex justify-around items-center px-2 py-2 max-w-md mx-auto bg-surface-container-lowest/90 backdrop-blur-xl border-t border-outline-variant/15 shadow-[0_-4px_24px_rgba(0,0,0,0.4)]">
+<!-- Tab 1: Library -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant opacity-70 hover:text-on-surface transition-colors active:scale-90 transition-transform duration-150 py-1 px-3">
+<span class="material-symbols-outlined" data-icon="library_music">library_music</span>
+<span class="font-label-sm text-label-sm mt-0.5">Library</span>
+</button>
+<!-- Tab 2: Folders (CURRENT ACTIVE STATE) -->
+<button class="flex flex-col items-center justify-center text-secondary font-bold hover:text-on-surface transition-colors active:scale-90 transition-transform duration-150 py-1 px-3">
+<span class="material-symbols-outlined" data-icon="folder_open" data-weight="fill" style="font-variation-settings: 'FILL' 1;">folder_open</span>
+<span class="font-label-sm text-label-sm mt-0.5">Folders</span>
+<!-- Subtle Active Indicator Dot -->
+<span class="w-1 h-1 rounded-full bg-secondary mt-0.5"></span>
+</button>
+<!-- Tab 3: Stream -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant opacity-70 hover:text-on-surface transition-colors active:scale-90 transition-transform duration-150 py-1 px-3">
+<span class="material-symbols-outlined" data-icon="travel_explore">travel_explore</span>
+<span class="font-label-sm text-label-sm mt-0.5">Stream</span>
+</button>
+<!-- Tab 4: Playlists -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant opacity-70 hover:text-on-surface transition-colors active:scale-90 transition-transform duration-150 py-1 px-3">
+<span class="material-symbols-outlined" data-icon="queue_music">queue_music</span>
+<span class="font-label-sm text-label-sm mt-0.5">Playlists</span>
+</button>
+<!-- Tab 5: Settings -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant opacity-70 hover:text-on-surface transition-colors active:scale-90 transition-transform duration-150 py-1 px-3">
+<span class="material-symbols-outlined" data-icon="tune">tune</span>
+<span class="font-label-sm text-label-sm mt-0.5">Settings</span>
+</button>
+</nav>
+</div>
+<!-- Micro-Interactions Script for Dynamic Rescan Feedback -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const rescanBtn = document.getElementById('rescan-btn');
+      if (rescanBtn) {
+        rescanBtn.addEventListener('click', () => {
+          const icon = rescanBtn.querySelector('.material-symbols-outlined');
+          const label = rescanBtn.querySelector('span:nth-child(2)');
+          
+          // Trigger spin animation
+          icon.classList.add('animate-spin');
+          label.textContent = 'Scanning...';
+          rescanBtn.classList.add('opacity-80', 'pointer-events-none');
+
+          setTimeout(() => {
+            icon.classList.remove('animate-spin');
+            label.textContent = 'Rescan Folders';
+            rescanBtn.classList.remove('opacity-80', 'pointer-events-none');
+          }, 1600);
+        });
+      }
+    });
+  </script>
+</body></html>

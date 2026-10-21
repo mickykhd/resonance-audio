@@ -1,0 +1,522 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Resonance Audio - Stream &amp; Discovery</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Google Fonts: Space Grotesk & Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-primary-fixed-variant": "#5516be",
+            "error-container": "#93000a",
+            "secondary-fixed": "#acedff",
+            "inverse-surface": "#e2e2e9",
+            "on-tertiary": "#67001b",
+            "background": "#111318",
+            "on-secondary-container": "#00424e",
+            "tertiary": "#ffb2b7",
+            "surface-container-low": "#1a1b21",
+            "inverse-primary": "#6d3bd7",
+            "on-background": "#e2e2e9",
+            "inverse-on-surface": "#2e3036",
+            "on-primary": "#3c0091",
+            "on-tertiary-fixed-variant": "#92002a",
+            "outline": "#958ea0",
+            "primary-container": "#a078ff",
+            "on-error": "#690005",
+            "secondary": "#4cd7f6",
+            "on-tertiary-fixed": "#40000d",
+            "on-primary-fixed": "#23005c",
+            "secondary-container": "#03b5d3",
+            "outline-variant": "#494454",
+            "on-secondary-fixed": "#001f26",
+            "primary-fixed-dim": "#d0bcff",
+            "surface-dim": "#111318",
+            "on-surface-variant": "#cbc3d7",
+            "tertiary-fixed-dim": "#ffb2b7",
+            "surface-container-lowest": "#0c0e13",
+            "on-surface": "#e2e2e9",
+            "tertiary-fixed": "#ffdadb",
+            "surface-container-highest": "#33353a",
+            "surface-tint": "#d0bcff",
+            "primary-fixed": "#e9ddff",
+            "on-secondary-fixed-variant": "#004e5c",
+            "on-secondary": "#003640",
+            "tertiary-container": "#ff516a",
+            "on-error-container": "#ffdad6",
+            "error": "#ffb4ab",
+            "surface-container": "#1e1f25",
+            "surface-variant": "#33353a",
+            "on-primary-container": "#340080",
+            "primary": "#d0bcff",
+            "surface-bright": "#37393f",
+            "secondary-fixed-dim": "#4cd7f6",
+            "on-tertiary-container": "#5b0017",
+            "surface": "#111318",
+            "surface-container-high": "#282a2f"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xs": "0.25rem",
+            "margin": "1rem",
+            "space-xl": "2rem",
+            "gutter": "1rem",
+            "gutter-mobile": "0.75rem",
+            "space-md": "1rem",
+            "margin-mobile": "1rem",
+            "space-lg": "1.5rem",
+            "space-sm": "0.5rem"
+          },
+          "fontFamily": {
+            "headline-md": ["Space Grotesk"],
+            "label-sm": ["Space Grotesk"],
+            "display-lg": ["Space Grotesk"],
+            "label-md": ["Space Grotesk"],
+            "label-lg": ["Space Grotesk"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"],
+            "headline-lg": ["Space Grotesk"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "headline-sm": ["Space Grotesk"],
+            "title-md": ["Plus Jakarta Sans"],
+            "display-lg-mobile": ["Space Grotesk"]
+          },
+          "fontSize": {
+            "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "label-sm": ["10px", { "lineHeight": "12px", "fontWeight": "700" }],
+            "display-lg": ["40px", { "lineHeight": "48px", "fontWeight": "700" }],
+            "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+            "label-lg": ["14px", { "lineHeight": "18px", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "headline-lg": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "title-md": ["16px", { "lineHeight": "22px", "fontWeight": "600" }],
+            "display-lg-mobile": ["32px", { "lineHeight": "40px", "fontWeight": "700" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-feature-settings: 'liga';
+      -webkit-font-smoothing: antialiased;
+    }
+    /* Hide scrollbars for clean audio carousel ergonomics */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container min-h-screen pb-36">
+<!-- TopAppBar Component (from JSON specification) -->
+<header class="fixed top-0 left-0 w-full z-40 flex justify-between items-center px-4 h-16 max-w-md mx-auto right-0 bg-surface-container-low/80 dark:bg-surface-container-low/80 backdrop-blur-md shadow-sm border-b border-outline-variant/20 dark:border-outline-variant/20">
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-full hover:bg-surface-bright dark:hover:bg-surface-bright hover:text-on-surface dark:hover:text-on-surface transition-colors active:scale-95 transition-transform duration-150 flex items-center justify-center text-primary dark:text-primary">
+<span class="material-symbols-outlined" data-icon="graphic_eq">graphic_eq</span>
+</button>
+<span class="font-headline-md text-headline-md font-bold text-on-surface dark:text-on-surface tracking-tight">Resonance Audio</span>
+</div>
+<div class="flex items-center gap-1">
+<button class="p-2 rounded-full hover:bg-surface-bright dark:hover:bg-surface-bright hover:text-on-surface dark:hover:text-on-surface transition-colors active:scale-95 transition-transform duration-150 flex items-center justify-center text-on-surface-variant dark:text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="max-w-md mx-auto px-4 pt-20 flex flex-col gap-5">
+<!-- Offline/Online Bridge Toggle Switch -->
+
+<!-- Telemetry Status Indicator Pill -->
+
+<!-- Search Bar with Voice Input for Web Discovery -->
+<div class="relative flex items-center">
+<div class="absolute left-3.5 flex items-center pointer-events-none text-secondary">
+<span class="material-symbols-outlined" data-icon="travel_explore">travel_explore</span>
+</div>
+<input class="w-full bg-surface-container-low/90 border border-outline-variant/30 rounded-2xl pl-11 pr-12 py-3 text-on-surface placeholder:text-on-surface-variant font-body-md text-body-md focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary/50 backdrop-blur-md transition-all shadow-inner" placeholder="Search Jamendo, FMA, RSS feeds..." type="text">
+<button class="absolute right-2 p-2 rounded-xl bg-surface-container-highest/60 hover:bg-surface-bright text-primary active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="mic">mic</span>
+</button>
+</div>
+<!-- Feed Source Chips -->
+<div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+<button class="flex-shrink-0 px-3.5 py-1.5 rounded-full bg-secondary/15 border border-secondary text-secondary font-label-md text-label-md flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]" data-icon="radar">radar</span>
+        All Feeds
+      </button>
+<button class="flex-shrink-0 px-3.5 py-1.5 rounded-full bg-surface-container-low border border-outline-variant/30 text-on-surface-variant hover:text-on-surface font-label-md text-label-md">
+        Jamendo Free
+      </button>
+<button class="flex-shrink-0 px-3.5 py-1.5 rounded-full bg-surface-container-low border border-outline-variant/30 text-on-surface-variant hover:text-on-surface font-label-md text-label-md">
+        Free Music Archive
+      </button>
+<button class="flex-shrink-0 px-3.5 py-1.5 rounded-full bg-surface-container-low border border-outline-variant/30 text-on-surface-variant hover:text-on-surface font-label-md text-label-md">
+        Web Audio RSS
+      </button>
+</div>
+<!-- Section 1: Top Trending Open Stream Radio & Stations (Bento Grid Style) -->
+<section class="flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="stream">stream</span>
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface tracking-tight">Top Trending Open Stream Radio</h2>
+</div>
+<button class="font-label-md text-label-md text-primary hover:underline">Explore</button>
+</div>
+<!-- Bento Cards Grid -->
+<div class="grid grid-cols-2 gap-3">
+<!-- Station 1: Lo-Fi Beats -->
+<div class="col-span-2 relative overflow-hidden rounded-2xl bg-surface-container-low/90 border border-outline-variant/25 p-4 flex flex-col justify-between h-44 shadow-lg group hover:border-secondary/40 transition-all">
+<div class="absolute inset-0 bg-cover bg-center opacity-30 group-hover:scale-105 transition-transform duration-500" data-alt="A stylized atmospheric lo-fi anime-inspired nocturnal room with soft electric violet ambient neon lights, a glowing high-fidelity audio workstation, rain glistening on transparent glass windows, deep obsidian dark aesthetic with cyan highlights." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDLlWsDDtGv7yqVrHvIjSxBb6tJ6AUABXYF_S_lkcoNypqKMdQSEbVn8XQE92B7YxKPLkidE3xLdPkooWvoUPAQAL00M38SFtINwG2RPHQOpxynXjANGTuECFSqx2OhpXmkk8-ZCj0qt1aHUC_NnPQaXge5FTp32iRfUDE0HRcUKt6y2xNhVGWpUA_BO0GKUJatKUR3rXsi-lyC_E6a4QlUx1tsFOgTAgu-q2jH4ytVCMh8cwC7xyk')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/60 to-transparent"></div>
+<div class="relative z-10 flex items-center justify-between">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-error-container/80 text-on-error border border-error/30 font-label-sm text-label-sm uppercase tracking-wider">
+<span class="w-2 h-2 rounded-full bg-tertiary-container animate-pulse"></span>
+              LIVE
+            </span>
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-lowest/80 border border-outline-variant/20 font-label-sm text-label-sm text-secondary">
+<span class="material-symbols-outlined text-[14px]" data-icon="headphones">headphones</span>
+<span class="">18.4k tuning in</span>
+</div>
+</div>
+<div class="relative z-10 flex items-end justify-between">
+<div>
+<p class="font-label-sm text-label-sm text-secondary uppercase tracking-widest">Jamendo Radio Live</p>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Lo-Fi Midnight Chillout</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">24/7 Lossless 48kHz Stream • Tokyo Node</p>
+</div>
+<button class="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-[0_0_20px_rgba(139,92,246,0.45)] hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="play_arrow" data-weight="fill" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+</div>
+<!-- Station 2: Synthwave Chill -->
+<div class="relative overflow-hidden rounded-2xl bg-surface-container-low/90 border border-outline-variant/25 p-3 flex flex-col justify-between h-40 shadow group hover:border-secondary/40 transition-all">
+<div class="absolute inset-0 bg-cover bg-center opacity-25 group-hover:scale-105 transition-transform duration-500" data-alt="Futuristic retrowave cyber highway bathed in deep indigo darkness and vivid electric violet laser grid reflections, sleek audiophile mood with cyan light trails." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAxGGvY06Aq0CaPDqKjwRHBWjcyMRFiWMtXuiyNKLTbA22BW5J5AtalQOfNG80QFeryAXo4i35TwwRF3si9oXLjfR4NIFAqdXwVS06boKAqMOtSbKsAYlh_htkOPQd72wyhYuCiUN7L40MK7bcKuRI7StpZh5jT23qHJGV3xMRFrRa8_641-sQZoRefrYGZr2n8PhTVRkM73q1Skf3T-X7Z_fvnX9LgI-jxtq7zHm9r5EnyM2n0puM')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/80 to-transparent"></div>
+<div class="relative z-10 flex items-center justify-between">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-error-container/70 text-on-error font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container animate-pulse"></span>
+              LIVE
+            </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">4.2k</span>
+</div>
+<div class="relative z-10">
+<h4 class="font-title-md text-title-md text-on-surface font-bold truncate">Synthwave Odyssey</h4>
+<p class="font-body-sm text-body-sm text-secondary truncate">SomaFM Relay</p>
+<div class="mt-2 flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline">320 kbps</span>
+<button class="w-8 h-8 rounded-full bg-surface-bright border border-secondary/30 text-secondary flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[18px]" data-icon="play_arrow">play_arrow</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Station 3: Indie Rock Stream -->
+<div class="relative overflow-hidden rounded-2xl bg-surface-container-low/90 border border-outline-variant/25 p-3 flex flex-col justify-between h-40 shadow group hover:border-secondary/40 transition-all">
+<div class="absolute inset-0 bg-cover bg-center opacity-25 group-hover:scale-105 transition-transform duration-500" data-alt="A moody indie alternative recording studio interior illuminated by soft backlights, vintage tube amplifiers, electric guitars in charcoal shadows, ambient obsidian tones with purple reflections." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCQ8AYdNpsALGX5q6dea3QUtHRfpMIUAiJ0SK_pUv0cSxYyZImO3Ofp9iS2-R-B82S7608WRT1t3I7_r0ql59-xT0h78AJbej4W1EWWG1oAdAK3TPpNvwQKRlmEl3bHpmZ2eiTYzQubJAthMyErM6dOP3fJuKI7ooG_VBA7rPa3Tg2BKb7-ufVlAnK8zJfwOOAtCjcAoMdl__lVhMjQu0se4sc-PO_wNgaGzaTficqmcWM6TITgpjk')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/80 to-transparent"></div>
+<div class="relative z-10 flex items-center justify-between">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-error-container/70 text-on-error font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container animate-pulse"></span>
+              LIVE
+            </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">9.8k</span>
+</div>
+<div class="relative z-10">
+<h4 class="font-title-md text-title-md text-on-surface font-bold truncate">Indie Rock Pulse</h4>
+<p class="font-body-sm text-body-sm text-secondary truncate">KEXP Open Stream</p>
+<div class="mt-2 flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline">FLAC / Web</span>
+<button class="w-8 h-8 rounded-full bg-surface-bright border border-secondary/30 text-secondary flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[18px]" data-icon="play_arrow">play_arrow</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2: Download for Offline Listening (Creative Commons / FMA / Jamendo) -->
+<section class="flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="download_for_offline">download_for_offline</span>
+<div>
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface tracking-tight">Download for Offline Listening</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Free Creative Commons Lossless Tracks</p>
+</div>
+</div>
+<button class="p-1.5 rounded-xl bg-surface-container-low border border-outline-variant/30 text-primary">
+<span class="material-symbols-outlined text-[20px]" data-icon="filter_list">filter_list</span>
+</button>
+</div>
+<!-- Track Row 1 -->
+<div class="bg-surface-container-low/80 border border-outline-variant/20 rounded-2xl p-3 flex items-center justify-between gap-3 hover:bg-surface-container transition-colors">
+<div class="relative w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 border border-outline-variant/25">
+<img class="w-full h-full object-cover" data-alt="Minimalist abstract dark cover artwork with generative liquid soundwaves vibrating in deep violet and neon cyan hues on obsidian charcoal canvas, audiophile album cover design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJSjQqFEgj67lrI_CpSK2D1B-5NE0UZsqKFSwWpzuZd1rTQYpFi2nkVQ81OqCqW7JLK0a57t4un6t7939vYCYsF62rQFqJNEdDufDiTmups7eR6Fg-09l-Wtsm0kbq468vbzv0li8byRrhJrL3-No6BIMicPw9-mpWA5dBZNblC_uqPlYaijIEor2vfMM_PN51k9hCcQ87u8PCImXxIvHAegF21inyv26jJjfm-7h8C3C-R9pZrkM">
+<div class="absolute inset-0 bg-primary/10"></div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-2">
+<h4 class="font-title-md text-title-md text-on-surface font-semibold truncate">Ethereal Quantum Waves</h4>
+<span class="px-1.5 py-0.5 rounded bg-surface-container-highest font-label-sm text-label-sm text-secondary">CC-BY</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Astrosphere • Free Music Archive</p>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="font-label-sm text-label-sm text-primary">FLAC • 24-bit/96kHz</span>
+<span class="text-outline text-[10px]">•</span>
+<span class="font-label-sm text-label-sm text-outline">38.4 MB</span>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<button class="w-10 h-10 rounded-full bg-secondary/15 hover:bg-secondary/25 border border-secondary/40 text-secondary flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[20px]" data-icon="download">download</span>
+</button>
+</div>
+</div>
+<!-- Track Row 2 -->
+<div class="bg-surface-container-low/80 border border-outline-variant/20 rounded-2xl p-3 flex items-center justify-between gap-3 hover:bg-surface-container transition-colors">
+<div class="relative w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 border border-outline-variant/25">
+<img class="w-full h-full object-cover" data-alt="Geometric dark synth aesthetic artwork featuring glowing wireframe polygons, floating crystalline structures in an obsidian space with vivid electric purple ambient light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuApF3wo9B-13FIHpBhfHYDy7iR7xV5YYphlo5WAjH-Sl-yPZ5A89ZVcqNoKEf7pvbREb9t6aeDdWcMQJxp5hoFyjUjoEsYRVQnVipzyj-PrNixDNxO9ePNZ9djX7Hma79Vf6zNlE2gTQhlHmJjBzSw9D_6NggXR4soxAtYX6Vnn3UHS2GEOfCzzTelnQQHN8xpWN1IWfxi2QfD0xMFX0-6eidHHO-MKzFOUI4JuE3fW6tRYcxsnI7M">
+<div class="absolute inset-0 bg-secondary/10"></div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-2">
+<h4 class="font-title-md text-title-md text-on-surface font-semibold truncate">Subterranean Echoes</h4>
+<span class="px-1.5 py-0.5 rounded bg-surface-container-highest font-label-sm text-label-sm text-secondary">CC-0</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Kavinsky Drift • Jamendo Community</p>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="font-label-sm text-label-sm text-primary">OGG • 320 kbps</span>
+<span class="text-outline text-[10px]">•</span>
+<span class="font-label-sm text-label-sm text-outline">12.2 MB</span>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<button class="w-10 h-10 rounded-full bg-secondary/15 hover:bg-secondary/25 border border-secondary/40 text-secondary flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[20px]" data-icon="download">download</span>
+</button>
+</div>
+</div>
+<!-- Track Row 3 -->
+<div class="bg-surface-container-low/80 border border-outline-variant/20 rounded-2xl p-3 flex items-center justify-between gap-3 hover:bg-surface-container transition-colors">
+<div class="relative w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 border border-outline-variant/25">
+<img class="w-full h-full object-cover" data-alt="Monochromatic dark audiophile sound sculpture suspended in zero gravity with neon violet highlights and deep shadows, contemporary high-tech minimalist style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDut1jDVkS_ISX0J5_NtS4lELz1VHkgQC3VnCABJBk02pWBI0cROPRNqRRaPtpU26bgLxjRDyK58cuqk5xcV5NealNEn3Ntu-CUT0bhwsXhXTTQ8nlUuBANuXoeZv4Fz5l_78e1k7ggTSSXZh0eqS4OG97crtRGjd1ZI7pvl9fxOHj50YrNWevBRCncPBJ5VMu_fFjsK0-5QGyBQ5mIsrWUqdpItRJeJ048arzgnjZSjgQMcfgHltY">
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-2">
+<h4 class="font-title-md text-title-md text-on-surface font-semibold truncate">Velvet Night Reflections</h4>
+<span class="px-1.5 py-0.5 rounded bg-surface-container-highest font-label-sm text-label-sm text-secondary">CC-BY-SA</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Solitude Project • LibreSound</p>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="font-label-sm text-label-sm text-primary">WAV • 16-bit</span>
+<span class="text-outline text-[10px]">•</span>
+<span class="font-label-sm text-label-sm text-outline">44.1 MB</span>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<button class="w-10 h-10 rounded-full bg-secondary/15 hover:bg-secondary/25 border border-secondary/40 text-secondary flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[20px]" data-icon="download">download</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Section 3: Podcast & Audio Shows Curated Stream List -->
+<section class="flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="podcasts">podcasts</span>
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface tracking-tight">Podcast &amp; Audio Shows</h2>
+</div>
+<button class="font-label-md text-label-md text-primary hover:underline">RSS Feeds</button>
+</div>
+<div class="flex gap-3 overflow-x-auto no-scrollbar pb-1">
+<!-- Show 1 -->
+<div class="flex-shrink-0 w-64 bg-surface-container-low/90 border border-outline-variant/25 rounded-2xl p-3 flex flex-col justify-between shadow-md">
+<div class="flex items-start gap-3">
+<div class="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0 border border-outline-variant/30">
+<img class="w-full h-full object-cover" data-alt="High tech microphone inside dark recording booth with glowing acoustic foam panels in violet and cyan ambient light, professional sound design aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQkxMCFvKDIqRqxED6T5wDoxDiJDpx1xupFFy84SdLisQeVSLO4iaplRD_obAX97_pG8uuryrDY4jmCW-Jgd0PktzzIcYud0-k6nUwSRi8pWs-iLcmAcvvmcfED_LQwEwOjx7BD3gwC5Qi9zha7JoO1fVu_clVq1iMm-_GHY1wWV02b_-3SsUwyCa6CYsiWdsYR4KnjkSrZnODT6m5JwEWye9mLWZx0IHZf9EjaffJX_YAOYT9ve8">
+</div>
+<div class="min-w-0">
+<span class="px-2 py-0.5 rounded-full bg-primary/20 text-primary font-label-sm text-label-sm">Tech &amp; Code</span>
+<h4 class="font-title-md text-title-md text-on-surface font-bold truncate mt-1">Open Source Sound Lab</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Ep. 42 • Real-time DSP in Rust</p>
+</div>
+</div>
+<div class="mt-3 pt-2 border-t border-outline-variant/15 flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline">58 min • RSS Synced</span>
+<button class="flex items-center gap-1 px-3 py-1 rounded-full bg-surface-bright text-secondary font-label-md text-label-md border border-secondary/20 hover:bg-surface-container-highest">
+<span class="material-symbols-outlined text-[16px]" data-icon="play_arrow">play_arrow</span>
+              Stream
+            </button>
+</div>
+</div>
+<!-- Show 2 -->
+<div class="flex-shrink-0 w-64 bg-surface-container-low/90 border border-outline-variant/25 rounded-2xl p-3 flex flex-col justify-between shadow-md">
+<div class="flex items-start gap-3">
+<div class="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0 border border-outline-variant/30">
+<img class="w-full h-full object-cover" data-alt="Vinyl record cutting lathe machine illuminated under neon studio lighting, precision engineering for audiophiles in an obsidian setting with purple glow." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCX-COHfMJ9l3rqyhSQlRXpzX3dbmg5LvmTAhHeic3dm5UzWuk4ZQl4OBqZoGtU3lV-dSATzq2dcjTM6_R9m6wsxjiOLbvoyGZSRy70O5U0ya8JaMrrzA0KX80hElwzAAszmSy-0GIuHKikR-stJpjtuagwlwggvLRerjzbc4-jeR1TBvUh2sIZ5NPUs6tiPjjzTfKwveQeCEZ7PFSOlSdFAm1D-3ulnw36z0dsV1uBkwktHXtdNGE">
+</div>
+<div class="min-w-0">
+<span class="px-2 py-0.5 rounded-full bg-secondary/20 text-secondary font-label-sm text-label-sm">Acoustics</span>
+<h4 class="font-title-md text-title-md text-on-surface font-bold truncate mt-1">Analog Tape Mastery</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Ep. 18 • Mastering for Vinyl</p>
+</div>
+</div>
+<div class="mt-3 pt-2 border-t border-outline-variant/15 flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline">44 min • RSS Synced</span>
+<button class="flex items-center gap-1 px-3 py-1 rounded-full bg-surface-bright text-secondary font-label-md text-label-md border border-secondary/20 hover:bg-surface-container-highest">
+<span class="material-symbols-outlined text-[16px]" data-icon="play_arrow">play_arrow</span>
+              Stream
+            </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 4: Network Bandwidth Saver & Stream Quality Card -->
+<section class="bg-surface-container-low/90 border border-outline-variant/25 rounded-2xl p-4 flex flex-col gap-3 shadow-lg">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="network_check">network_check</span>
+<div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Network Bandwidth Saver</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Manage mobile data and online stream bitrate</p>
+</div>
+</div>
+</div>
+<!-- Toggle: Stream over Wi-Fi only -->
+<div class="flex items-center justify-between py-2 border-b border-outline-variant/15">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="wifi">wifi</span>
+<div>
+<p class="font-title-md text-title-md text-on-surface font-medium">Stream over Wi-Fi only</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Prevent accidental cellular meter charges</p>
+</div>
+</div>
+<!-- Active Switch Toggle -->
+<button class="w-12 h-6 rounded-full bg-secondary relative flex items-center px-1 transition-colors">
+<span class="w-4 h-4 rounded-full bg-surface-container-lowest translate-x-6 transform transition-transform"></span>
+</button>
+</div>
+<!-- Quality Selector (Auto / 128k / 320k) -->
+<div class="flex flex-col gap-2 pt-1">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Stream Audio Quality</span>
+<span class="font-label-sm text-label-sm text-secondary">High Fidelity (320k)</span>
+</div>
+<div class="grid grid-cols-3 gap-2 bg-surface-container-lowest/80 p-1 rounded-xl border border-outline-variant/20">
+<button class="py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors text-center">
+            Auto (Dynamic)
+          </button>
+<button class="py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors text-center">
+            128k (Saver)
+          </button>
+<button class="py-1.5 rounded-lg bg-surface-container-high border border-secondary/40 text-secondary font-label-md text-label-md font-bold text-center shadow">
+            320k (Lossless)
+          </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Persistent Sticky Mini Player Bar (Floats above BottomNav) -->
+<div class="fixed bottom-16 left-0 right-0 z-40 max-w-md mx-auto px-3">
+<div class="h-[60px] rounded-2xl bg-surface-container-high/90 backdrop-blur-xl border border-primary/20 shadow-[0_12px_32px_-4px_rgba(0,0,0,0.7)] flex items-center justify-between px-3 relative overflow-hidden">
+<!-- Continuous 2px Hairline Progress Bar -->
+<div class="absolute bottom-0 left-0 right-0 h-[2px] bg-outline-variant/30">
+<div class="h-full bg-secondary w-2/3 shadow-[0_0_8px_rgba(76,215,246,0.8)]"></div>
+</div>
+<!-- Track Metadata & Art -->
+<div class="flex items-center gap-3 min-w-0 flex-1">
+<div class="relative w-10 h-10 rounded-xl overflow-hidden flex-shrink-0 border border-outline-variant/30">
+<img class="w-full h-full object-cover" data-alt="Album art featuring glowing purple geometric abstract neon patterns with subtle audio waveforms against an obsidian background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXp7oUw-3AyoSBWBV-Cwk_USqHwI4GXVO6CJsBmXwRBSj7tHjVcKM33sXaOzmOdlCv_QkO9iSBYKRf5L07mxvhPnmfwi-9ExMYDk2gEIKV_Z7gpWWWI0S7YDqvMvL87I1QeXdHJ8wA3zggAXkSfLRdd9Qjh4CC6XxaXZpr3Y6SSjbY-gih8QvJhyfWuxOuGE-uneaY0Ylg4rJNMJZri7oY0x5KGjJluuKv-dmcPysDYLzMAQLRu_4">
+</div>
+<div class="min-w-0 flex-1">
+<div class="flex items-center gap-1.5">
+<!-- Animated 3-Bar Equalizer Glyph -->
+<span class="flex items-end gap-0.5 h-3">
+<span class="w-0.5 h-3 bg-secondary animate-pulse rounded-full"></span>
+<span class="w-0.5 h-2 bg-secondary animate-pulse delay-75 rounded-full"></span>
+<span class="w-0.5 h-2.5 bg-secondary animate-pulse delay-150 rounded-full"></span>
+</span>
+<h5 class="font-title-md text-title-md font-bold text-primary truncate">Resonance Radio: Lo-Fi Chill</h5>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">SomaFM Relay • 320 kbps Stream</p>
+</div>
+</div>
+<!-- Quick Playback Controls -->
+<div class="flex items-center gap-1">
+<button class="w-9 h-9 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[20px]" data-icon="favorite">favorite</span>
+</button>
+<button class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-[0_0_16px_rgba(139,92,246,0.5)] active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[22px]" data-icon="pause" data-weight="fill" style="font-variation-settings: 'FILL' 1;">pause</span>
+</button>
+</div>
+</div>
+</div>
+<!-- BottomNavBar Component (from JSON specification) -->
+<!-- Contextual State Lock: Active Tab = 'Stream' (Index 2 in label_texts: ["Library", "Folders", "Stream", "Playlists", "Settings"]) -->
+<nav class="fixed bottom-0 left-0 right-0 w-full z-50 flex justify-around items-center px-2 py-2 max-w-md mx-auto bg-surface-container-lowest/90 dark:bg-surface-container-lowest/90 backdrop-blur-xl border-t border-outline-variant/15 dark:border-outline-variant/15 shadow-[0_-4px_24px_rgba(0,0,0,0.4)]">
+<!-- Item 0: Library -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant opacity-70 hover:text-on-surface dark:hover:text-on-surface transition-colors active:scale-90 transition-transform duration-150 py-1 px-2">
+<span class="material-symbols-outlined text-[22px]" data-icon="library_music">library_music</span>
+<span class="font-label-sm text-label-sm mt-0.5">Library</span>
+</button>
+<!-- Item 1: Folders -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant opacity-70 hover:text-on-surface dark:hover:text-on-surface transition-colors active:scale-90 transition-transform duration-150 py-1 px-2">
+<span class="material-symbols-outlined text-[22px]" data-icon="folder_open">folder_open</span>
+<span class="font-label-sm text-label-sm mt-0.5">Folders</span>
+</button>
+<!-- Item 2: Stream (ACTIVE: Maps to Online Stream & Web Discovery Hub) -->
+<button class="flex flex-col items-center justify-center text-secondary dark:text-secondary font-bold hover:text-on-surface dark:hover:text-on-surface transition-colors active:scale-90 transition-transform duration-150 py-1 px-2">
+<span class="material-symbols-outlined text-[22px]" data-icon="travel_explore" data-weight="fill" style="font-variation-settings: 'FILL' 1;">travel_explore</span>
+<span class="font-label-sm text-label-sm mt-0.5">Stream</span>
+</button>
+<!-- Item 3: Playlists -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant opacity-70 hover:text-on-surface dark:hover:text-on-surface transition-colors active:scale-90 transition-transform duration-150 py-1 px-2">
+<span class="material-symbols-outlined text-[22px]" data-icon="queue_music">queue_music</span>
+<span class="font-label-sm text-label-sm mt-0.5">Playlists</span>
+</button>
+<!-- Item 4: Settings -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant opacity-70 hover:text-on-surface dark:hover:text-on-surface transition-colors active:scale-90 transition-transform duration-150 py-1 px-2">
+<span class="material-symbols-outlined text-[22px]" data-icon="tune">tune</span>
+<span class="font-label-sm text-label-sm mt-0.5">Settings</span>
+</button>
+</nav>
+
+
+</body></html>

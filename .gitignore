@@ -1,0 +1,31 @@
+# Gradle / build
+.gradle/
+build/
+*/build/
+!gradle/wrapper/gradle-wrapper.jar
+.kotlin/
+captures/
+.cxx/
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+
+# Local configuration (SDK paths)
+local.properties
+
+# Signing
+*.jks
+*.keystore
+keystore.properties
+
+# Build artifacts
+*.apk
+*.aab
+
+# OS
+.DS_Store
+Thumbs.db

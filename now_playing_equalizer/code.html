@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Resonance Audio - Now Playing</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with Forms and Container Queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-primary-fixed-variant": "#5516be",
+            "error-container": "#93000a",
+            "secondary-fixed": "#acedff",
+            "inverse-surface": "#e2e2e9",
+            "on-tertiary": "#67001b",
+            "background": "#111318",
+            "on-secondary-container": "#00424e",
+            "tertiary": "#ffb2b7",
+            "surface-container-low": "#1a1b21",
+            "inverse-primary": "#6d3bd7",
+            "on-background": "#e2e2e9",
+            "inverse-on-surface": "#2e3036",
+            "on-primary": "#3c0091",
+            "on-tertiary-fixed-variant": "#92002a",
+            "outline": "#958ea0",
+            "primary-container": "#a078ff",
+            "on-error": "#690005",
+            "secondary": "#4cd7f6",
+            "on-tertiary-fixed": "#40000d",
+            "on-primary-fixed": "#23005c",
+            "secondary-container": "#03b5d3",
+            "outline-variant": "#494454",
+            "on-secondary-fixed": "#001f26",
+            "primary-fixed-dim": "#d0bcff",
+            "surface-dim": "#111318",
+            "on-surface-variant": "#cbc3d7",
+            "tertiary-fixed-dim": "#ffb2b7",
+            "surface-container-lowest": "#0c0e13",
+            "on-surface": "#e2e2e9",
+            "tertiary-fixed": "#ffdadb",
+            "surface-container-highest": "#33353a",
+            "surface-tint": "#d0bcff",
+            "primary-fixed": "#e9ddff",
+            "on-secondary-fixed-variant": "#004e5c",
+            "on-secondary": "#003640",
+            "tertiary-container": "#ff516a",
+            "on-error-container": "#ffdad6",
+            "error": "#ffb4ab",
+            "surface-container": "#1e1f25",
+            "surface-variant": "#33353a",
+            "on-primary-container": "#340080",
+            "primary": "#d0bcff",
+            "surface-bright": "#37393f",
+            "secondary-fixed-dim": "#4cd7f6",
+            "on-tertiary-container": "#5b0017",
+            "surface": "#111318",
+            "surface-container-high": "#282a2f"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xs": "0.25rem",
+            "margin": "1rem",
+            "space-xl": "2rem",
+            "gutter": "1rem",
+            "gutter-mobile": "0.75rem",
+            "space-md": "1rem",
+            "margin-mobile": "1rem",
+            "space-lg": "1.5rem",
+            "space-sm": "0.5rem"
+          },
+          "fontFamily": {
+            "headline-md": ["Space Grotesk"],
+            "label-sm": ["Space Grotesk"],
+            "display-lg": ["Space Grotesk"],
+            "label-md": ["Space Grotesk"],
+            "label-lg": ["Space Grotesk"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"],
+            "headline-lg": ["Space Grotesk"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "headline-sm": ["Space Grotesk"],
+            "title-md": ["Plus Jakarta Sans"],
+            "display-lg-mobile": ["Space Grotesk"]
+          },
+          "fontSize": {
+            "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "label-sm": ["10px", { "lineHeight": "12px", "fontWeight": "700" }],
+            "display-lg": ["40px", { "lineHeight": "48px", "fontWeight": "700" }],
+            "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+            "label-lg": ["14px", { "lineHeight": "18px", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "headline-lg": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "title-md": ["16px", { "lineHeight": "22px", "fontWeight": "600" }],
+            "display-lg-mobile": ["32px", { "lineHeight": "40px", "fontWeight": "700" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    
+    /* Audiophile custom waveform animation & slider stylings */
+    .glow-aura-primary {
+      box-shadow: 0 0 28px rgba(160, 120, 255, 0.42), 0 4px 16px rgba(0, 0, 0, 0.6);
+    }
+    .glow-album-ambient {
+      box-shadow: 0 20px 60px -10px rgba(160, 120, 255, 0.28), 0 0 80px -20px rgba(76, 215, 246, 0.22);
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased selection:bg-primary selection:text-on-primary min-h-screen flex flex-col justify-between relative overflow-x-hidden">
+<!-- Atmospheric Dynamic Background Glows -->
+<div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+<div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[420px] h-[420px] bg-primary-container/15 rounded-full blur-[110px]"></div>
+<div class="absolute top-1/3 -right-24 w-[280px] h-[280px] bg-secondary-container/10 rounded-full blur-[90px]"></div>
+<div class="absolute bottom-10 -left-20 w-[300px] h-[300px] bg-primary/10 rounded-full blur-[100px]"></div>
+</div>
+<!-- Screen Content Wrapper (Max Mobile Reference 414px) -->
+<div class="relative z-10 w-full max-w-md mx-auto flex flex-col min-h-screen px-4 pb-6 pt-2 justify-between">
+<!-- Top System & Audio Stream Header -->
+<header class="w-full pt-2 flex flex-col gap-2">
+<!-- Top Action Navigation -->
+<div class="flex items-center justify-between h-14">
+<!-- Collapse Sheet Button (Task-focused context triggers back/collapse) -->
+<button aria-label="Collapse Player" class="w-10 h-10 rounded-full flex items-center justify-center bg-surface-container-low/80 hover:bg-surface-bright text-on-surface transition-colors active:scale-95 duration-150 border border-outline-variant/20 shadow-sm" type="button">
+<span class="material-symbols-outlined text-[24px]">keyboard_arrow_down</span>
+</button>
+<!-- Center Screen Identification -->
+<div class="flex flex-col items-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant tracking-widest uppercase">Playing From Library</span>
+<h1 class="font-headline-sm text-headline-sm font-bold text-on-surface tracking-tight">Now Playing</h1>
+</div>
+<!-- Equalizer Quick Toggle Switch -->
+<button aria-label="Open Studio Equalizer" class="w-10 h-10 rounded-full flex items-center justify-center bg-surface-container-low/80 hover:bg-surface-bright text-secondary transition-colors active:scale-95 duration-150 border border-secondary/30 shadow-sm" id="eq-toggle-btn" type="button">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+</button>
+</div>
+<!-- Hi-Res Audio Telemetry Stream Badge -->
+<div class="flex items-center justify-center">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-lowest/80 backdrop-blur-md border border-outline-variant/30 shadow-inner">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-secondary font-semibold tracking-wider">Hi-Res Lossless</span>
+<span class="text-outline-variant text-[10px]">•</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">FLAC 96kHz / 24-bit</span>
+<span class="material-symbols-outlined text-secondary text-[14px]" style="font-variation-settings: 'FILL' 1;">graphic_eq</span>
+</div>
+</div>
+</header>
+<!-- Center Section: Album Squircle, Metadata, & Core Info -->
+<main class="flex-1 flex flex-col justify-center items-center py-4 space-y-5">
+<!-- Album Vinyl/Squircle Canvas Artwork -->
+<div class="relative group cursor-pointer">
+<!-- Ambient Color Bloom under Art -->
+<div class="absolute inset-0 rounded-[28px] bg-gradient-to-tr from-primary-container/40 via-secondary/20 to-primary/30 blur-2xl transform scale-95 opacity-80 group-hover:opacity-100 transition-opacity duration-500 glow-album-ambient"></div>
+<!-- Artwork Container -->
+<div class="relative w-64 h-64 sm:w-72 sm:h-72 rounded-[28px] overflow-hidden p-1 bg-gradient-to-b from-white/10 to-transparent border border-outline-variant/25 backdrop-blur-md shadow-2xl">
+<img class="w-full h-full object-cover rounded-[24px]" data-alt="Futuristic synthwave geometric landscape album artwork featuring glowing neon violet mountains under an obsidian night sky with a luminous cyan grid horizon and deep atmospheric glass reflections reflecting a high-performance modern audiophile dark interface aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2hddm0kE7xaQnTfKU4NhqHKgF66jVGpdjK2oDaCVrvGNBDRkw3eWQAt1iLw9ao5M7Ss9d1vA6vho6P0yvJQ9H1XMWE_eTcPesSojkaeTYYpRTS4gxIc9nVXV9J9jpfVmvnnxa-p2VkbkZbVJBE1PqNk_vZeRVZa2itWdPlD9gdmkpHVB-C0amVCUML3ohQu8JoHr8ELEWbDB_VhFGoDe-zGs0LJcPRIZJScrx9w9gAj3_VJrb1OI"/>
+<!-- Vinyl Specular Hairline Overlay -->
+<div class="absolute inset-0 rounded-[24px] pointer-events-none border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)]"></div>
+<!-- Subtle Floating Studio Badge -->
+<div class="absolute top-3.5 right-3.5 px-2 py-0.5 rounded-lg bg-surface-container-lowest/80 backdrop-blur-md border border-white/10 text-on-surface flex items-center gap-1">
+<span class="font-label-sm text-label-sm text-primary font-bold">DSD</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">2.8MHz</span>
+</div>
+</div>
+</div>
+<!-- Track Information & Actions Cluster -->
+<div class="w-full px-2 flex items-center justify-between">
+<div class="flex-1 min-w-0 pr-3">
+<div class="flex items-center gap-2">
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface truncate tracking-tight">Resonance</h2>
+<span class="px-1.5 py-0.5 rounded text-[9px] font-bold tracking-wide uppercase bg-surface-container-high text-secondary border border-secondary/20">Master</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant font-medium truncate mt-0.5">HOME - Odyssey</p>
+</div>
+<!-- Quick Interaction Badges (Heart & Lyrics) -->
+<div class="flex items-center gap-1.5 flex-shrink-0">
+<!-- Lyrics Toggle -->
+<button aria-label="Toggle Lyrics View" class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface bg-surface-container-low/60 hover:bg-surface-container active:scale-95 transition-all duration-150 border border-outline-variant/20" type="button">
+<span class="material-symbols-outlined text-[20px]">lyrics</span>
+</button>
+<!-- Favorite Glow Heart Button (Glowing & Filled) -->
+<button aria-label="Favorite Track" class="w-10 h-10 rounded-full flex items-center justify-center text-primary bg-primary-container/20 active:scale-90 transition-all duration-150 border border-primary/40 shadow-[0_0_14px_rgba(160,120,255,0.35)]" type="button">
+<span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+</div>
+</div>
+<!-- High-Precision Interactive Audio Waveform Scrubber -->
+<div class="w-full px-1 space-y-2">
+<!-- Soundwave Visualization Bars Container -->
+<div class="relative h-12 flex items-center justify-between gap-[2.5px] px-1 cursor-pointer group">
+<!-- Continuous Hairline Center Track -->
+<div class="absolute inset-x-0 h-[2px] bg-outline-variant/20 top-1/2 -translate-y-1/2 pointer-events-none"></div>
+<!-- Waveform 56-bar simulation with Played (Cyan) vs Unplayed (White/Low Opacity) -->
+<!-- Played Section (Cyan) -->
+<div class="w-1 rounded-full bg-secondary h-3 shadow-[0_0_6px_rgba(76,215,246,0.5)]"></div>
+<div class="w-1 rounded-full bg-secondary h-4 shadow-[0_0_6px_rgba(76,215,246,0.5)]"></div>
+<div class="w-1 rounded-full bg-secondary h-7 shadow-[0_0_6px_rgba(76,215,246,0.5)]"></div>
+<div class="w-1 rounded-full bg-secondary h-5 shadow-[0_0_6px_rgba(76,215,246,0.5)]"></div>
+<div class="w-1 rounded-full bg-secondary h-9 shadow-[0_0_6px_rgba(76,215,246,0.5)]"></div>
+<div class="w-1 rounded-full bg-secondary h-11 shadow-[0_0_6px_rgba(76,215,246,0.5)]"></div>
+<div class="w-1 rounded-full bg-secondary h-8 shadow-[0_0_6px_rgba(76,215,246,0.5)]"></div>
+<div class="w-1 rounded-full bg-secondary h-6 shadow-[0_0_6px_rgba(76,215,246,0.5)]"></div>
+<div class="w-1 rounded-full bg-secondary h-10 shadow-[0_0_6px_rgba(76,215,246,0.5)]"></div>
+<div class="w-1 rounded-full bg-secondary h-12 shadow-[0_0_6px_rgba(76,215,246,0.5)]"></div>
+<div class="w-1 rounded-full bg-secondary h-7 shadow-[0_0_6px_rgba(76,215,246,0.5)]"></div>
+<div class="w-1 rounded-full bg-secondary h-8 shadow-[0_0_6px_rgba(76,215,246,0.5)]"></div>
+<div class="w-1 rounded-full bg-secondary h-11 shadow-[0_0_6px_rgba(76,215,246,0.5)]"></div>
+<div class="w-1 rounded-full bg-secondary h-9 shadow-[0_0_6px_rgba(76,215,246,0.5)]"></div>
+<div class="w-1 rounded-full bg-secondary h-6 shadow-[0_0_6px_rgba(76,215,246,0.5)]"></div>
+<div class="w-1 rounded-full bg-secondary h-10 shadow-[0_0_6px_rgba(76,215,246,0.5)]"></div>
+<div class="w-1 rounded-full bg-secondary h-8 shadow-[0_0_6px_rgba(76,215,246,0.5)]"></div>
+<div class="w-1 rounded-full bg-secondary h-12 shadow-[0_0_6px_rgba(76,215,246,0.5)]"></div>
+<div class="w-1 rounded-full bg-secondary h-9 shadow-[0_0_6px_rgba(76,215,246,0.5)]"></div>
+<div class="w-1 rounded-full bg-secondary h-7 shadow-[0_0_6px_rgba(76,215,246,0.5)]"></div>
+<div class="w-1 rounded-full bg-secondary h-10 shadow-[0_0_6px_rgba(76,215,246,0.5)]"></div>
+<div class="w-1 rounded-full bg-secondary h-8 shadow-[0_0_6px_rgba(76,215,246,0.5)]"></div>
+<div class="w-1 rounded-full bg-secondary h-5 shadow-[0_0_6px_rgba(76,215,246,0.5)]"></div>
+<!-- Active Scrub Indicator Pin / Thumb -->
+<div class="relative flex items-center justify-center">
+<div class="w-3.5 h-3.5 rounded-full bg-secondary border-2 border-surface-container-lowest shadow-[0_0_12px_#4cd7f6] ring-2 ring-primary/60 scale-110"></div>
+</div>
+<!-- Unplayed Section (Dimmed Translucent White/Purple) -->
+<div class="w-1 rounded-full bg-white/20 h-7 group-hover:bg-white/30 transition-colors"></div>
+<div class="w-1 rounded-full bg-white/20 h-10 group-hover:bg-white/30 transition-colors"></div>
+<div class="w-1 rounded-full bg-white/20 h-8 group-hover:bg-white/30 transition-colors"></div>
+<div class="w-1 rounded-full bg-white/20 h-11 group-hover:bg-white/30 transition-colors"></div>
+<div class="w-1 rounded-full bg-white/20 h-6 group-hover:bg-white/30 transition-colors"></div>
+<div class="w-1 rounded-full bg-white/20 h-9 group-hover:bg-white/30 transition-colors"></div>
+<div class="w-1 rounded-full bg-white/20 h-12 group-hover:bg-white/30 transition-colors"></div>
+<div class="w-1 rounded-full bg-white/20 h-7 group-hover:bg-white/30 transition-colors"></div>
+<div class="w-1 rounded-full bg-white/20 h-5 group-hover:bg-white/30 transition-colors"></div>
+<div class="w-1 rounded-full bg-white/20 h-8 group-hover:bg-white/30 transition-colors"></div>
+<div class="w-1 rounded-full bg-white/20 h-10 group-hover:bg-white/30 transition-colors"></div>
+<div class="w-1 rounded-full bg-white/20 h-6 group-hover:bg-white/30 transition-colors"></div>
+<div class="w-1 rounded-full bg-white/20 h-9 group-hover:bg-white/30 transition-colors"></div>
+<div class="w-1 rounded-full bg-white/20 h-11 group-hover:bg-white/30 transition-colors"></div>
+<div class="w-1 rounded-full bg-white/20 h-7 group-hover:bg-white/30 transition-colors"></div>
+<div class="w-1 rounded-full bg-white/20 h-5 group-hover:bg-white/30 transition-colors"></div>
+<div class="w-1 rounded-full bg-white/20 h-8 group-hover:bg-white/30 transition-colors"></div>
+<div class="w-1 rounded-full bg-white/20 h-4 group-hover:bg-white/30 transition-colors"></div>
+<div class="w-1 rounded-full bg-white/20 h-3 group-hover:bg-white/30 transition-colors"></div>
+</div>
+<!-- Telemetry Time Readouts -->
+<div class="flex items-center justify-between font-label-md text-label-md text-on-surface-variant px-1 font-mono">
+<span class="text-secondary font-semibold">02:18</span>
+<span class="text-outline">04:32</span>
+</div>
+</div>
+<!-- Playback Controls Cluster -->
+<div class="w-full flex items-center justify-between px-2 pt-1">
+<!-- Shuffle Control -->
+<button aria-label="Toggle Shuffle" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-secondary transition-colors active:scale-90" type="button">
+<span class="material-symbols-outlined text-[22px]">shuffle</span>
+</button>
+<!-- Previous Track Button -->
+<button aria-label="Previous Track" class="w-12 h-12 rounded-full flex items-center justify-center text-on-surface hover:text-primary transition-colors active:scale-90" type="button">
+<span class="material-symbols-outlined text-[30px]" style="font-variation-settings: 'FILL' 1;">skip_previous</span>
+</button>
+<!-- Big Luminous Play/Pause FAB Button -->
+<button aria-label="Pause Audio" class="relative group w-16 h-16 rounded-full bg-gradient-to-tr from-primary to-primary-container text-on-primary-container flex items-center justify-center glow-aura-primary active:scale-95 transition-all duration-150" type="button">
+<!-- Specular Shimmer Top Layer -->
+<div class="absolute inset-0 rounded-full bg-gradient-to-b from-white/30 to-transparent pointer-events-none"></div>
+<span class="material-symbols-outlined text-[36px]" style="font-variation-settings: 'FILL' 1;">pause</span>
+</button>
+<!-- Next Track Button -->
+<button aria-label="Next Track" class="w-12 h-12 rounded-full flex items-center justify-center text-on-surface hover:text-primary transition-colors active:scale-90" type="button">
+<span class="material-symbols-outlined text-[30px]" style="font-variation-settings: 'FILL' 1;">skip_next</span>
+</button>
+<!-- Repeat-1 Toggle (Active with glowing Cyan dot) -->
+<button aria-label="Repeat One Active" class="relative w-11 h-11 rounded-full flex flex-col items-center justify-center text-secondary active:scale-90" type="button">
+<span class="material-symbols-outlined text-[22px]">repeat_one</span>
+<span class="w-1 h-1 rounded-full bg-secondary shadow-[0_0_6px_#4cd7f6] mt-0.5"></span>
+</button>
+</div>
+</main>
+<!-- Bottom Studio Drawer: Equalizer & Audio Hardware Routing -->
+<section class="w-full space-y-3 pt-2">
+<!-- Output Device Switcher Pill -->
+<div class="w-full flex items-center justify-between px-3 py-2 rounded-2xl bg-surface-container-low/70 backdrop-blur-xl border border-outline-variant/20 shadow-sm">
+<div class="flex items-center gap-2.5">
+<div class="w-7 h-7 rounded-full bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[16px]">headphones</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline-variant uppercase tracking-wider">Audio Output</span>
+<span class="font-title-md text-title-md text-on-surface font-semibold text-xs leading-none">Bluetooth LDAC Headset</span>
+</div>
+</div>
+<!-- Quick Switch Action Pill -->
+<button class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container hover:bg-surface-bright text-secondary text-xs font-label-md font-semibold border border-outline-variant/30 active:scale-95 transition-all" type="button">
+<span>990 kbps</span>
+<span class="material-symbols-outlined text-[14px]">expand_more</span>
+</button>
+</div>
+<!-- Studio Equalizer Collapsible Card / Drawer Container -->
+<div class="w-full rounded-2xl bg-surface-container-low/90 backdrop-blur-2xl border border-primary/20 p-3.5 space-y-3.5 shadow-xl relative overflow-hidden">
+<!-- Inner Specular Hairline -->
+<div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
+<!-- Equalizer Header: Preset Selector & Status -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">equalizer</span>
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface text-sm">Studio Parametric EQ</span>
+</div>
+<!-- Preset Pill Selector -->
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary-container/15 border border-primary/30">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span class="font-label-md text-label-md text-primary font-bold">Electronic / Bass Boost</span>
+<span class="material-symbols-outlined text-primary text-[14px]">arrow_drop_down</span>
+</div>
+</div>
+<!-- 10-Band EQ Visual Spectrum Preview -->
+<div class="grid grid-cols-10 gap-1.5 items-end h-16 pt-2 px-1 border-b border-outline-variant/20 pb-2">
+<!-- 32Hz -->
+<div class="flex flex-col items-center gap-1 h-full justify-end">
+<div class="w-full rounded bg-primary h-[82%] relative group">
+<span class="absolute -top-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-white shadow-sm"></span>
+</div>
+<span class="text-[8px] font-mono text-outline">32</span>
+</div>
+<!-- 64Hz -->
+<div class="flex flex-col items-center gap-1 h-full justify-end">
+<div class="w-full rounded bg-primary h-[94%] relative">
+<span class="absolute -top-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-white shadow-sm"></span>
+</div>
+<span class="text-[8px] font-mono text-outline">64</span>
+</div>
+<!-- 125Hz -->
+<div class="flex flex-col items-center gap-1 h-full justify-end">
+<div class="w-full rounded bg-primary h-[70%] relative">
+<span class="absolute -top-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-white shadow-sm"></span>
+</div>
+<span class="text-[8px] font-mono text-outline">125</span>
+</div>
+<!-- 250Hz -->
+<div class="flex flex-col items-center gap-1 h-full justify-end">
+<div class="w-full rounded bg-outline-variant/40 h-[45%] relative">
+<span class="absolute -top-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-secondary shadow-sm"></span>
+</div>
+<span class="text-[8px] font-mono text-outline">250</span>
+</div>
+<!-- 500Hz -->
+<div class="flex flex-col items-center gap-1 h-full justify-end">
+<div class="w-full rounded bg-outline-variant/40 h-[50%] relative">
+<span class="absolute -top-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-secondary shadow-sm"></span>
+</div>
+<span class="text-[8px] font-mono text-outline">500</span>
+</div>
+<!-- 1kHz -->
+<div class="flex flex-col items-center gap-1 h-full justify-end">
+<div class="w-full rounded bg-outline-variant/40 h-[55%] relative">
+<span class="absolute -top-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-secondary shadow-sm"></span>
+</div>
+<span class="text-[8px] font-mono text-outline">1k</span>
+</div>
+<!-- 2kHz -->
+<div class="flex flex-col items-center gap-1 h-full justify-end">
+<div class="w-full rounded bg-secondary/80 h-[68%] relative">
+<span class="absolute -top-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-white shadow-sm"></span>
+</div>
+<span class="text-[8px] font-mono text-outline">2k</span>
+</div>
+<!-- 4kHz -->
+<div class="flex flex-col items-center gap-1 h-full justify-end">
+<div class="w-full rounded bg-secondary h-[76%] relative">
+<span class="absolute -top-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-white shadow-sm"></span>
+</div>
+<span class="text-[8px] font-mono text-outline">4k</span>
+</div>
+<!-- 8kHz -->
+<div class="flex flex-col items-center gap-1 h-full justify-end">
+<div class="w-full rounded bg-secondary h-[85%] relative">
+<span class="absolute -top-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-white shadow-sm"></span>
+</div>
+<span class="text-[8px] font-mono text-outline">8k</span>
+</div>
+<!-- 16kHz -->
+<div class="flex flex-col items-center gap-1 h-full justify-end">
+<div class="w-full rounded bg-secondary h-[90%] relative">
+<span class="absolute -top-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-white shadow-sm"></span>
+</div>
+<span class="text-[8px] font-mono text-outline">16k</span>
+</div>
+</div>
+<!-- Studio DSP Knobs & Sliders Row -->
+<div class="grid grid-cols-3 gap-2 pt-1 text-center">
+<!-- Bass Boost Interactive Slider Card -->
+<div class="p-2 rounded-xl bg-surface-container/60 border border-outline-variant/20 flex flex-col justify-between">
+<div class="flex justify-between items-center text-[10px] font-label-md text-on-surface-variant">
+<span>Bass Boost</span>
+<span class="text-primary font-bold">+6dB</span>
+</div>
+<!-- Slider Bar -->
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full mt-2 relative overflow-hidden">
+<div class="bg-primary h-full rounded-full w-[65%]"></div>
+</div>
+</div>
+<!-- Virtualizer Card -->
+<div class="p-2 rounded-xl bg-surface-container/60 border border-outline-variant/20 flex flex-col justify-between">
+<div class="flex justify-between items-center text-[10px] font-label-md text-on-surface-variant">
+<span>Spatial 3D</span>
+<span class="text-secondary font-bold">45%</span>
+</div>
+<!-- Slider Bar -->
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full mt-2 relative overflow-hidden">
+<div class="bg-secondary h-full rounded-full w-[45%]"></div>
+</div>
+</div>
+<!-- Reverb Environment Card -->
+<div class="p-2 rounded-xl bg-surface-container/60 border border-outline-variant/20 flex flex-col justify-between">
+<div class="flex justify-between items-center text-[10px] font-label-md text-on-surface-variant">
+<span>Acoustics</span>
+<span class="text-on-surface font-bold text-[9px] truncate">Studio</span>
+</div>
+<!-- Indicator Chip -->
+<div class="mt-2 flex items-center justify-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="text-[9px] font-label-md text-secondary font-medium">Room A</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Inline Micro-Interactions Script -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const eqBtn = document.getElementById('eq-toggle-btn');
+      if (eqBtn) {
+        eqBtn.addEventListener('click', () => {
+          eqBtn.classList.toggle('bg-secondary');
+          eqBtn.classList.toggle('text-on-secondary');
+        });
+      }
+    });
+  </script>
+</body></html>
